@@ -1,0 +1,22 @@
+# Station ownership data
+# Keep all values in double quotes. Leave "" if unknown; do not delete keys.
+
+# Station call sign, e.g. "WBHM". Must match the filename.
+callsign: "KNPR"
+
+# FCC service code, e.g. "FM", "AM", "FX" (translator).
+service_code: ""
+
+# FCC Registration Number: exactly 10 digits, including leading zeros.
+frn: ""
+
+# Entity that controls the respondent, per the FCC ownership filing. Boolean.
+# Only acceptable responses are "Y" or "N"
+control_of_respondent: ""
+
+# Legal name of the license holder, as on the FCC license.
+licensee_name: ""
+
+# Ultimate parent organization at the top of the ownership chain.
+# This will be the same as the Licensee_name if control of respondent is "N"
+top_level_owner: ""
