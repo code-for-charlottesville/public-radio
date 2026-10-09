@@ -1,0 +1,12 @@
+[project]
+name = "public-radio"
+version = "0.1.0"
+description = "Public radio station ownership data"
+requires-python = ">=3.10"
+dependencies = [
+    "pandas",
+    "pyyaml",
+]
+
+[tool.uv]
+package = false
