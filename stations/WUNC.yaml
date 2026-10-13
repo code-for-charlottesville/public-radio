@@ -5,7 +5,7 @@
 callsign: "WUNC"
 
 # FCC service code, e.g. "FM", "AM", "FX" (translator).
-service_code: ""
+service_code: "FM"
 
 # FCC Registration Number: exactly 10 digits, including leading zeros.
 frn: ""
