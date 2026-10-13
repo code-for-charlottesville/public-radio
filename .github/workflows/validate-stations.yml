@@ -10,6 +10,6 @@ jobs:
   validate:
     runs-on: ubuntu-slim
     steps:
-      - uses: action/checkout@v7
-      - uses: astral-sh/setup-uv@v10
+      - uses: actions/checkout@v7
+      - uses: astral-sh/setup-uv@v7
       - run: uv run scripts/validate_stations.py
