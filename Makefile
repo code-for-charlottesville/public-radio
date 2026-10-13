@@ -18,6 +18,7 @@ stations:
 stations-force:
 	uv run scripts/generate_stations.py --force
 
-# Unfilled stub files fail validation, so pass FILES to check only specific ones.
+# Untouched stubs pass; partly filled files must satisfy every rule.
+# Pass FILES to check only specific ones.
 validate:
 	uv run scripts/validate_stations.py $(FILES)

@@ -3,6 +3,7 @@
 
 Usage: validate_stations.py [FILE ...]
 With no arguments, validates every stations/*.yaml except _TEMPLATE.yaml.
+Untouched stubs (only the callsign filled in) are skipped without error.
 Exits 1 if any file has errors.
 """
 import os
@@ -76,6 +77,10 @@ def check(path):
         # Only checked once the callsign itself is valid, to avoid noisy
         # duplicate messages
         errors.append(f"callsign: {callsign!r} does not match filename {path.name!r}")
+    # An untouched stub (everything but the callsign is "") is not an error:
+    # nobody has filled it in yet. Once any field is filled, all rules apply.
+    if all(values[k] == "" for k in KEYS if k != "callsign"):
+        return errors
     if not SERVICE_CODE.match(values["service_code"]):
         errors.append("service_code: must be letters only and not blank")
     if not FRN.match(values["frn"]):
