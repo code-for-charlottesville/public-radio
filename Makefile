@@ -22,3 +22,6 @@ stations-force:
 # Pass FILES to check only specific ones.
 validate:
 	uv run scripts/validate_stations.py $(FILES)
+
+launch-datasette:
+	uv run datasette -i public_radio_facility_data.sqlite --metadata metadata.yaml --setting sql_time_limit_ms 20000 --setting truncate_cells_html 80

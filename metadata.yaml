@@ -1,0 +1,75 @@
+plugins:
+  datasette-geojson-map:
+    tile_layer: https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png"
+    tile_layer_options:
+      maxZoom: 19
+      attribution: "Map data: © OpenStreetMap contributors, SRTM | Map style: © OpenTopoMap (CC-BY-SA)"
+
+databases:
+  public_radio_facility_data:
+    queries:
+      station_ownership_by_callsign:
+        title: Station ownership by callsign
+        description: Licensee, FRN and ownership-report respondent info for a callsign
+        sql: |
+          SELECT facility_id, callsign, service_code, licensee_name,
+                 json_object(
+                   'href', '/public_radio_facility_data/facilities_by_frn?frn=' || frn,
+                   'label', frn
+                 ) AS frn,
+                 control_of_respondent, respondent_organization, nature_of_respondent
+          FROM station_ownership
+          WHERE callsign = :callsign
+          ORDER BY service_code, facility_id
+        params:
+          - callsign
+      facilities_by_frn:
+        title: Facilities by FRN
+        description: All facilities whose licensee has this FRN, with a link to each facility's contour candidates
+        sql: |
+          SELECT v.callsign,
+                 v.service_code,  
+                 json_object(
+                   'href', '/public_radio_facility_data/contour_candidates?facility_id=' || v.facility_id,
+                   'label', (SELECT COUNT(DISTINCT af.afac_application_id)
+                             FROM application_facility af
+                             JOIN fm_service_contour c ON c.lms_application_id = af.afac_application_id
+                             WHERE af.afac_facility_id = v.facility_id AND af.active_ind = 'Y')
+                 ) AS contour_candidates,
+                 v.*
+          FROM facility_by_frn v
+          WHERE v.frn = :frn
+          ORDER BY v.service_code, v.callsign
+        params:
+          - frn
+      contour_candidates:
+        title: Contour candidates for a facility
+        description: Every filing with an FCC service contour for this facility, with its type and status
+        sql: |
+          SELECT DISTINCT
+                 c.application_id,
+                 c.service,
+                 c.lms_application_id,
+                 c.dts_site_number,
+                 c.transmitter_site,
+                 a.aapp_file_num AS file_num,
+                 substr(a.aapp_receipt_date, 1, 10) AS received,
+                 l.auth_type_code AS auth_type,
+                 l.purpose_code AS purpose,
+                 l.sub_purpose_code AS sub_purpose,
+                 l.current_status_code AS status,
+                 substr(l.status_date, 1, 10) AS status_date,
+                 af.afac_application_id = f.latest_filing_version_id AS is_latest,
+                 l.license_filing_id,
+                 length(c.contour) - length(replace(c.contour, '|', '')) + 1 AS n_points,
+                 c.geometry
+          FROM facility f
+          JOIN application_facility af
+            ON af.afac_facility_id = f.facility_id AND af.active_ind = 'Y'
+          JOIN fm_service_contour c ON c.lms_application_id = af.afac_application_id
+          JOIN license_filing_version l ON l.filing_version_id = af.afac_application_id
+          LEFT JOIN application a ON a.aapp_application_id = af.afac_application_id
+          WHERE f.facility_id = :facility_id
+          ORDER BY is_latest DESC, received DESC
+        params:
+          - facility_id
