@@ -220,3 +220,4 @@ __marimo__/
 # Large Database Files
 *.sqlite
 *.dat
+*.zip
