@@ -59,7 +59,6 @@ databases:
                  l.sub_purpose_code AS sub_purpose,
                  l.current_status_code AS status,
                  substr(l.status_date, 1, 10) AS status_date,
-                 af.afac_application_id = f.latest_filing_version_id AS is_latest,
                  l.license_filing_id,
                  length(c.contour) - length(replace(c.contour, '|', '')) + 1 AS n_points,
                  c.geometry
@@ -70,6 +69,6 @@ databases:
           JOIN license_filing_version l ON l.filing_version_id = af.afac_application_id
           LEFT JOIN application a ON a.aapp_application_id = af.afac_application_id
           WHERE f.facility_id = :facility_id
-          ORDER BY is_latest DESC, received DESC
+          ORDER BY received DESC
         params:
           - facility_id
