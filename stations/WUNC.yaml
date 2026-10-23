@@ -5,18 +5,18 @@
 callsign: "WUNC"
 
 # FCC service code, e.g. "FM", "AM", "FX" (translator).
-service_code: ""
+service_code: "FM"
 
 # FCC Registration Number: exactly 10 digits, including leading zeros.
-frn: ""
+frn: "0024665291"
 
 # Entity that controls the respondent, per the FCC ownership filing. Boolean.
 # Only acceptable responses are "Y" or "N"
-control_of_respondent: ""
+control_of_respondent: "Y"
 
 # Legal name of the license holder, as on the FCC license.
-licensee_name: ""
+licensee_name: "WUNC PUBLIC RADIO, LLC"
 
 # Ultimate parent organization at the top of the ownership chain.
 # This will be the same as the Licensee_name if control of respondent is "N"
-top_level_owner: ""
+top_level_owner: "The University of North Carolina at Chapel Hill"
