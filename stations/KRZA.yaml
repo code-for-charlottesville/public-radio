@@ -8,7 +8,7 @@ callsign: "KRZA"
 service_code: ""
 
 # FCC Registration Number: exactly 10 digits, including leading zeros.
-frn: ""
+frn: "2"
 
 # Entity that controls the respondent, per the FCC ownership filing. Boolean.
 # Only acceptable responses are "Y" or "N"
