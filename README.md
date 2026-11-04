@@ -30,6 +30,30 @@ We will also need the FM service contour data. Note that this does not include A
 
 - [FM_service_contour_current](https://transition.fcc.gov/bureaus/mb/databases/map/FM_service_contour_current.zip)
 
+## Building the Database and Launching Datasette
+
+The project uses a `Makefile` and [uv](https://docs.astral.sh/uv/) to manage tasks. On first run, `uv` creates a `.venv` and installs dependencies from `pyproject.toml`. Run all `make` commands from the repo root, since the scripts use paths relative to it.
+
+1. Download the FCC files listed above and extract them into the `tables/` directory (the build reads `tables/*.dat`).
+
+2. Build the SQLite database:
+
+   ```bash
+   make db
+   ```
+
+   This runs `scripts/create_db.py` and produces `public_radio_facility_data.sqlite`.
+
+3. Launch a local [Datasette](https://datasette.io/) instance to explore the data:
+
+   ```bash
+   make launch-datasette
+   ```
+
+   This serves the database using `metadata.yaml`, with a 20 second SQL time limit. Open the URL printed in the terminal (by default http://127.0.0.1:8001) in your browser.
+
+Run `make help` to see all available targets, including `stations`, `stations-force`, and `validate` for working with the station YAML files.
+
 ## Relevant FCC Radio Service Codes
 
 https://wiki.radioreference.com/index.php/FCC_Radio_Service_Codes
