@@ -2,10 +2,11 @@
 
 help:
 	@echo "Targets:"
-	@echo "  make db              Build public_radio_facility_data.sqlite from tables/*.dat"
-	@echo "  make stations        Generate stations/<CALLSIGN>.yaml (skips existing files)"
-	@echo "  make stations-force  Regenerate all station files, overwriting existing ones"
-	@echo "  make validate        Validate station YAML files (all, or FILES=\"stations/WBHM.yaml ...\")"
+	@echo "  make db               Build public_radio_facility_data.sqlite from tables/*.dat"
+	@echo "  make stations         Generate stations/<CALLSIGN>.yaml (skips existing files)"
+	@echo "  make stations-force   Regenerate all station files, overwriting existing ones"
+	@echo "  make validate         Validate station YAML files (all, or FILES=\"stations/WBHM.yaml ...\")"
+	@echo "  make launch-datasette Launch a local datasette instance"
 
 # create_db.py uses paths relative to the repo root, so run make from here.
 # uv creates .venv and installs dependencies from pyproject.toml on first run.

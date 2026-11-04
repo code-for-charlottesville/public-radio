@@ -217,7 +217,7 @@ __marimo__/
 # Streamlit
 .streamlit/secrets.toml
 
-# Large Database Files
 *.sqlite
 *.dat
 *.zip
+/tables/*.txt
