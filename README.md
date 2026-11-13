@@ -19,12 +19,14 @@ You will need to download the following public FCC Database Files to the tables 
 - [application_facility](https://enterpriseefiling.fcc.gov/dataentry/api/download/dbfile/10-14-2026/application_facility.zip)
 - [application](https://enterpriseefiling.fcc.gov/dataentry/api/download/dbfile/11-03-2026/application.zip)
 - [facility](https://enterpriseefiling.fcc.gov/dataentry/api/download/dbfile/11-03-2026/facility.zip)
+- [facility_applicant](https://enterpriseefiling.fcc.gov/dataentry/api/download/dbfile/11-03-2026/facility_applicant.zip)
 - [license_filing_version](https://enterpriseefiling.fcc.gov/dataentry/api/download/dbfile/11-03-2026/license_filing_version.zip)
 - [lkp_application_purpose](https://enterpriseefiling.fcc.gov/dataentry/api/download/dbfile/11-03-2026/lkp_application_purpose.zip)
 - [lkp_application_sub_purpose](https://enterpriseefiling.fcc.gov/dataentry/api/download/dbfile/11-03-2026/lkp_application_sub_purpose.zip)
 - [lkp_authorization_type](https://enterpriseefiling.fcc.gov/dataentry/api/download/dbfile/11-03-2026/lkp_authorization_type.zip)
 - [lkp_filing_status](https://enterpriseefiling.fcc.gov/dataentry/api/download/dbfile/11-03-2026/lkp_filing_status.zip)
 - [lkp_filing_type](https://enterpriseefiling.fcc.gov/dataentry/api/download/dbfile/11-03-2026/lkp_filing_type.zip)
+- [ownership_reports_respondent_representative_info](https://enterpriseefiling.fcc.gov/dataentry/api/download/dbfile/11-03-2026/ownership_reports_respondent_representative_info.zip)
 
 We will also need the FM service contour data. Note that this does not include AM stations and a description on the data shape and method used by the FCC to determine these contours can be found [here](https://www.fcc.gov/media/radio/fm-service-contour-data-points).
 
@@ -32,9 +34,9 @@ We will also need the FM service contour data. Note that this does not include A
 
 ## Building the Database and Launching Datasette
 
-The project uses a `Makefile` and [uv](https://docs.astral.sh/uv/) to manage tasks. On first run, `uv` creates a `.venv` and installs dependencies from `pyproject.toml`. Run all `make` commands from the repo root, since the scripts use paths relative to it.
+The project uses a `Makefile` and [uv](https://docs.astral.sh/uv/) to manage tasks. If you don't have uv on your machine, you will need to [install](https://docs.astral.sh/uv/getting-started/installation/) it.  On first run, `uv` creates a `.venv` and installs dependencies from `pyproject.toml`. Run all `make` commands from the repo root, since the scripts use paths relative to it.
 
-1. Download the FCC files listed above and extract them into the `tables/` directory (the build reads `tables/*.dat`).
+1. Download the FCC files listed above and extract them into a `tables/` directory at the root of the repo. You may need to create the directory if it does not exist (the build reads `tables/*.dat`).
 
 2. Build the SQLite database:
 
